@@ -168,7 +168,7 @@ NOTES:
  *   Rating: 6
  */
 int anyEvenBit(int x) {
-  return 2;
+  return 0x5555555 & x;
 }
 /* 
  * bitAnd - x&y using only ~ and | 
