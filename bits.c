@@ -188,9 +188,13 @@ int anyEvenBit(int x) {
  *   Rating: 6
  */
 int bitAnd(int x, int y) {
- 	
-
-	 return 2;
+	//Use DeMorgan's law and negation law to derive AND operator
+	// ~(p&q) = (~p|~q)
+	int deMorgan = (~x | ~y);
+	// ~~p = p
+	int negation = ~deMorgan;	
+	
+	 return negation;
 }
 /* 
  * fitsShort - return 1 if x can be represented as a 
@@ -201,7 +205,17 @@ int bitAnd(int x, int y) {
  *   Rating: 6
  */
 int fitsShort(int x) {
-  return 2;
+	int tMax = 32767;
+	int tMin = -32768;
+
+	//tMin = (tMin << 16) | tMin;
+	//printf("size of int variables is %d bytes", sizeof(int));
+	//printf("tMax + tMin is %x ", tMax + tMin);
+	//int positive = 
+	//int logicop = !subtr;
+	  
+
+return tMax;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -224,7 +238,8 @@ int getByte(int x, int n) {
  *   Rating: 6
  */
 int implication(int x, int y) {
-    return 2;
+	return !x | y;
+	
 }
 /*
  * isTmin - returns 1 if x is the minimum, two's complement number,
@@ -234,7 +249,9 @@ int implication(int x, int y) {
  *   Rating: 6
  */
 int isTmin(int x) {
-  return 2;
+	int tMin = (0x1 << 31);
+	int notSame = !(tMin & x);
+  return (!x);
 }
 /* 
  * oddBits - return word with all odd-numbered bits set to 1
@@ -243,7 +260,9 @@ int isTmin(int x) {
  *   Rating: 6
  */
 int oddBits(void) {
-  return 2;
+	int oddBitsWord = (0xAA << 8) | 0xAA; 
+	oddBitsWord = (oddBitsWord << 16) | oddBitsWord;
+  return oddBitsWord;
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
@@ -274,7 +293,19 @@ int thirdBits(void) {
  *  Rating: 6
  */
 int upperBits(int n) {
-  return 2;
+	printf("testing %d \n", n);
+	int padding = (0xff << 24) | (0xff << 16) | (0xff << 8) | 0xff;
+	int subtr = ~n+1;
+	printf("fully padded number is %x before shift \n", padding);
+	printf("now we calculate shift to be 32 +  %d \n",subtr);
+	int shift = 32 + subtr ;	
+	printf("shifting 32 would give %x \n", (padding << 32));
+	printf("now we shift %d \n", shift);
+	printf("which gives %x \n", (padding << shift));
+	padding = padding << shift;
+		
+		
+  return padding;
 }
 /* 
  * absVal - absolute value of x
