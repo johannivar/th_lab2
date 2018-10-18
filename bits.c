@@ -169,11 +169,14 @@ NOTES:
  */
 int anyEvenBit(int x) {
 	
-	pritnf("x is: %x \n", x);
-	cout << "0x55 & x is: " << 0x55 & x << endl;
-	
+	printf("x is: %x \n", x);
+  int a = 0x55 & x;
+	printf("0x55 & x is: %x \n", a);
 	int r = !(0x55 & x);
-	cout << "!(0x55 & x) is: " << r << endl;
+	printf(" !(0x55 & x) is: %x \n", r);
+	
+  
+	
 	return !r;
 }
 /* 
