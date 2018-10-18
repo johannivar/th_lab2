@@ -168,12 +168,13 @@ NOTES:
  *   Rating: 6
  */
 int anyEvenBit(int x) {
-	
-	printf("x is: %x \n", x);
-  int a = 0x55 & x;
-	printf("0x55 & x is: %x \n", a);
-	int r = !(0x55 & x);
-	printf(" !(0x55 & x) is: %x \n", r);
+	int f1 = (0x55 << 8) | 0x55;
+	int f2 = (f1 << 16) | f1;	
+	//printf("f2 is: %x \n", f2);
+  	//int a = f2 & x;
+	//printf("%x & x is: %x \n",f, a);
+	int r = !(f2 & x);
+	//printf(" !(%x & x) is: %x \n",f, r);
 	
   
 	
