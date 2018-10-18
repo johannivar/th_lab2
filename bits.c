@@ -168,7 +168,13 @@ NOTES:
  *   Rating: 6
  */
 int anyEvenBit(int x) {
-  return 0x5555555 & x;
+	
+	pritnf("x is: %x \n", x);
+	cout << "0x55 & x is: " << 0x55 & x << endl;
+	
+	int r = !(0x55 & x);
+	cout << "!(0x55 & x) is: " << r << endl;
+	return !r;
 }
 /* 
  * bitAnd - x&y using only ~ and | 
@@ -178,7 +184,9 @@ int anyEvenBit(int x) {
  *   Rating: 6
  */
 int bitAnd(int x, int y) {
-  return 2;
+ 	
+
+	 return 2;
 }
 /* 
  * fitsShort - return 1 if x can be represented as a 
