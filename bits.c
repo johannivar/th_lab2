@@ -205,17 +205,13 @@ int bitAnd(int x, int y) {
  *   Rating: 6
  */
 int fitsShort(int x) {
-	int tMax = 32767;
-	int tMin = -32768;
+	printf("x is %x \n", x);
+	int bytes_2_and_3 = ((x>>16) & ((0xff<<8) | 0xff));
+	printf("bytes 2 and 3 is %x \n",bytes_2_and_3);
+	int logic_not = !bytes_2_and_3;
+	printf("!bytes_2_and_3 gives %d \n", !bytes_2_and_3); 
 
-	//tMin = (tMin << 16) | tMin;
-	//printf("size of int variables is %d bytes", sizeof(int));
-	//printf("tMax + tMin is %x ", tMax + tMin);
-	//int positive = 
-	//int logicop = !subtr;
-	  
-
-return tMax;
+return logic_not;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -226,7 +222,15 @@ return tMax;
  *   Rating: 6
  */
 int getByte(int x, int n) {
-  return 2;
+	//create a binary filter to filter on the correct byte, shift that byte to the right and filter with 0xff
+	int padd1 = 0xff;
+	int shift = n<<3;
+	int padd2 = (padd1<<shift);
+//	printf("padd is %x after shift \n", padd2);
+	
+//	printf("padd&x is %x \n", (padd2&x));
+	return ((padd2&x)>>shift) & padd1;
+
 }
 /* 
  * implication - return x -> y in propositional logic - 0 for false, 1
@@ -249,8 +253,8 @@ int implication(int x, int y) {
  *   Rating: 6
  */
 int isTmin(int x) {
-	int tMin = (0x1 << 31);
-	int notSame = !(tMin & x);
+	//int tMin =
+	//int notSame = !(tMin & x);
   return (!x);
 }
 /* 
@@ -273,7 +277,10 @@ int oddBits(void) {
  *  Rating: 6
  */
 int sign(int x) {
-    return 2;
+  	 int signedbit = 1<<31;
+//	int and = (x & signedbit)
+	
+	 return 2;
 }
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
@@ -302,7 +309,7 @@ int upperBits(int n) {
 	printf("shifting 32 would give %x \n", (padding << 32));
 	printf("now we shift %d \n", shift);
 	printf("which gives %x \n", (padding << shift));
-	padding = padding << shift;
+	padding = (padding<<shift);
 		
 		
   return padding;
