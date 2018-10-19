@@ -205,11 +205,11 @@ int bitAnd(int x, int y) {
  *   Rating: 6
  */
 int fitsShort(int x) {
-	printf("x is %x \n", x);
+	//printf("x is %x \n", x);
 	int bytes_2_and_3 = ((x>>16) & ((0xff<<8) | 0xff));
-	printf("bytes 2 and 3 is %x \n",bytes_2_and_3);
+	//printf("bytes 2 and 3 is %x \n",bytes_2_and_3);
 	int logic_not = !bytes_2_and_3;
-	printf("!bytes_2_and_3 gives %d \n", !bytes_2_and_3); 
+	//printf("!bytes_2_and_3 gives %d \n", !bytes_2_and_3); 
 
 return logic_not;
 }
@@ -279,8 +279,9 @@ int oddBits(void) {
 int sign(int x) {
   	 int signedbit = 1<<31;
 //	int and = (x & signedbit)
-	
-	 return 2;
+//	printf("x is %x (%d) \n",x,x);
+//	printf("(x&1) is %x \n", (x&1));	
+	 return (x>>31) | (((~x + 1) >> 31)  &1);
 }
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
@@ -300,15 +301,15 @@ int thirdBits(void) {
  *  Rating: 6
  */
 int upperBits(int n) {
-	printf("testing %d \n", n);
+	//printf("testing %d \n", n);
 	int padding = (0xff << 24) | (0xff << 16) | (0xff << 8) | 0xff;
 	int subtr = ~n+1;
-	printf("fully padded number is %x before shift \n", padding);
-	printf("now we calculate shift to be 32 +  %d \n",subtr);
+	//printf("fully padded number is %x before shift \n", padding);
+	//printf("now we calculate shift to be 32 +  %d \n",subtr);
 	int shift = 32 + subtr ;	
-	printf("shifting 32 would give %x \n", (padding << 32));
-	printf("now we shift %d \n", shift);
-	printf("which gives %x \n", (padding << shift));
+	//printf("shifting 32 would give %x \n", (padding << 32));
+	//printf("now we shift %d \n", shift);
+	//printf("which gives %x \n", (padding << shift));
 	padding = (padding<<shift);
 		
 		
@@ -323,7 +324,10 @@ int upperBits(int n) {
  *   Rating: 6
  */
 int absVal(int x) {
-  return 2;
+	int is_negative = (x>>31);
+	//printf("is_negative is %x \n", is_negative);
+  	int xor = is_negative^x;
+	return xor + ~(is_negative) + 1;
 }
 /* 
  * isAsciiDigit - return 1 if 0x30 <= x <= 0x39 (ASCII codes for characters '0' to '9')
@@ -335,7 +339,9 @@ int absVal(int x) {
  *   Rating: 6
  */
 int isAsciiDigit(int x) {
-  return 2;
+	
+	  
+return 2;
 }
 /* 
  * isGreater - if x > y  then return 1, else return 0 
@@ -345,7 +351,9 @@ int isAsciiDigit(int x) {
  *   Rating: 6
  */
 int isGreater(int x, int y) {
-  return 2;
+	  
+
+	return 2;
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
@@ -355,7 +363,15 @@ int isGreater(int x, int y) {
  *   Rating: 6
  */
 int isPositive(int x) {
-  return 2;
+ 	//printf("x is %x \n", x);
+	int signedBit = (x>>31);
+	//printf("signed bit is %x \n", signedBit);
+	//printf(" is_not_negative is %x \n", !(x>>31));
+	//printf(" is_zero is  %x \n", !x);;
+	int is_not_negative = !(x>>31);
+	int is_zero = !x;
+	//return is_not_negative;
+	return is_not_negative & !is_zero;
 }
 /* 
  * rempwr2 - Compute x%(2^n), for 0 <= n <= 30
@@ -366,7 +382,14 @@ int isPositive(int x) {
  *   Rating: 6
  */
 int rempwr2(int x, int n) {
-    return 2;
+//	printf("testing x = %x, n = %d \n", x, n);
+	//the modulo 2^n is the rightmost n digits in the binary number  ex. 10011%2^3 = 011 
+    	
+	//create mask with n ones 
+	int fullmask = (0xff << 24) | (0xff << 16) | (0xff << 8) | 0xff;
+	int mask = ~(fullmask<<n);
+//	printf("mask is %x \n", mask);
+	return (mask&x);
 }
 /* 
  * replaceByte(x,n,c) - Replace byte n in x with c
@@ -378,5 +401,15 @@ int rempwr2(int x, int n) {
  *   Rating: 6
  */
 int replaceByte(int x, int n, int c) {
-  return 2;
+        //printf("replacing byte %d in %x with %x", n, x, c);
+	int shift = n<<3;
+        int mask_zero_byte = ~(0xff<<shift);
+	//printf("mask zero_byte is %x \n", mask_zero_byte);
+	int number_missing_byte = mask_zero_byte&x;
+	//printf("number_missing_byte is %x \n", number_missing_byte);
+	
+	int mask = (c<<shift);
+	//printf("mask is %x \n", mask);
+	return (number_missing_byte | mask);
+
 }
