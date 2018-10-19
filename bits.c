@@ -351,9 +351,17 @@ return 2;
  *   Rating: 6
  */
 int isGreater(int x, int y) {
-	  
+  // compute x - y and check if it is positive
+	  int difference = x + (~y + 1);
 
-	return 2;
+// compute isPositive(difference)
+
+  int signedBit = (difference>>31);
+  int is_not_negative = !signedBit;
+  int is_zero = !x;
+
+
+	return is_not_negative & !is_zero;
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
